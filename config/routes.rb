@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :users
+  mount_devise_token_auth_for 'User', at: '/api/v1/users', controllers: {
+    registrations: 'api/v1/registrations'
+  }
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1, defaults: { format: :json } do
-      devise_scope :user do
-        resource :user, only: %i[create]
-      end
+      # devise_scope :user do
+        # resource :user, only: %i[update show]
+      # end
     end
   end
 end

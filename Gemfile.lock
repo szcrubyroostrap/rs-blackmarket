@@ -195,7 +195,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   devise (~> 4.8.0)
-  devise_token_auth (~> 1.1, >= 1.1.4)
+  devise_token_auth (~> 1.1.5)
   dotenv-rails (~> 2.7.6)
   listen (~> 3.3)
   pg (~> 1.1)
