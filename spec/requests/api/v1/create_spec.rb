@@ -27,7 +27,7 @@ describe 'POST api/v1/users/', type: :request do
     end
 
     it 'creates the user' do
-      expect{ http_request }.to change(User, :count).by(1)
+      expect { http_request }.to change(User, :count).by(1)
     end
 
     it 'returns the user' do

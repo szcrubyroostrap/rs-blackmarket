@@ -1,5 +1,3 @@
-require: rubocop-rails
-
 inherit_gem:
   rubocop-rootstrap:
     - config/rails.yml
@@ -15,7 +13,7 @@ AllCops:
 
 Layout/LineLength:
   Exclude:
-    - db/migrate/20210714203835_devise_create_users
+    - db/migrate/20210714203835_devise_create_users.rb
 
 Rails/LexicallyScopedActionFilter:
   Exclude:

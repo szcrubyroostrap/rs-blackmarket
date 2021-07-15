@@ -11,7 +11,7 @@ describe User do
 
   describe '#create' do
     let(:params) { attributes_for(:user) }
-    
+
     context 'successful' do
       it 'is valid' do
         expect(build(:user, params).valid?).to eq(true)
