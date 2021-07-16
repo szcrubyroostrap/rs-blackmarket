@@ -16,7 +16,7 @@ describe User do
       it 'is valid' do
         expect(build(:user, params).valid?).to eq(true)
       end
-      it 'does not have no errors' do
+      it 'does not have errors' do
         user = build(:user, params)
         user.valid?
         expect(user.errors).to be_empty
