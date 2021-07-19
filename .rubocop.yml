@@ -1,0 +1,20 @@
+inherit_gem:
+  rubocop-rootstrap:
+    - config/rails.yml
+
+inherit_mode:
+  merge:
+    - Exclude
+
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - bin/bundle
+
+Layout/LineLength:
+  Exclude:
+    - db/migrate/20210714203835_devise_create_users.rb
+
+Rails/LexicallyScopedActionFilter:
+  Exclude:
+    - app/controllers/api/v1/api_controller.rb
