@@ -11,6 +11,7 @@ gem 'pg', '~> 1.1'
 gem 'devise', '~> 4.8.0'
 gem 'devise_token_auth', '~> 1.1.5'
 gem 'puma', '~> 5.0'
+gem 'rack-cors', '~> 1.1.1'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
