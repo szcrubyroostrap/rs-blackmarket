@@ -9,7 +9,8 @@ gem 'rails', '~> 6.1.4'
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'devise', '~> 4.8.0'
-gem 'devise_token_auth', '~> 1.1.5'
+# https://github.com/lynndylanhurley/devise_token_auth/issues/1474#issuecomment-860803568
+gem 'devise_token_auth', github: 'lynndylanhurley/devise_token_auth', branch: 'master'
 gem 'puma', '~> 5.0'
 gem 'rack-cors', '~> 1.1.1'
 
