@@ -10,6 +10,7 @@ AllCops:
   Exclude:
     - db/schema.rb
     - bin/bundle
+  NewCops: enable
 
 Layout/LineLength:
   Exclude:

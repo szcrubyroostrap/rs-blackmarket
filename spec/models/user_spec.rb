@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe User do
   describe 'Validations' do
     subject { build :user }
