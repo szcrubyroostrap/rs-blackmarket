@@ -23,11 +23,12 @@ RSpec.describe Product, type: :model do
     it { is_expected.to validate_presence_of(:stock) }
 
     it { is_expected.to validate_numericality_of(:rating).is_greater_than(0) }
-    it { is_expected.to validate_numericality_of(:status).is_greater_than(0) }
+    it { is_expected.to define_enum_for(:status).with_values(inactive: 0, active: 1) }
     it { is_expected.to validate_numericality_of(:stock).is_greater_than(0) }
 
     it 'has relationships' do
       expect(subject).to have_many(:category_products).dependent(:destroy)
+      expect(subject).to have_many(:categories).through(:category_products)
     end
   end
 end

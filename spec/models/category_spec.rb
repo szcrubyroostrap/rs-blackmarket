@@ -19,6 +19,7 @@ RSpec.describe Category, type: :model do
 
     it 'has relationships' do
       expect(subject).to have_many(:category_products).dependent(:destroy)
+      expect(subject).to have_many(:products).through(:category_products)
       expect(subject).to belong_to(:parent_category).optional
     end
   end
