@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Product, type: :model do
   describe 'database' do
     it 'has columns' do
