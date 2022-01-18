@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1, defaults: { format: :json } do # TODO: implement new routes later
+      resource :carts, only: [:show] do
+        collection do
+          post :add_product
+        end
+      end
     end
   end
 end
