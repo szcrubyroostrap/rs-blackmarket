@@ -13,17 +13,44 @@ RSpec.describe Product, type: :model do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_presence_of(:description) }
-    it { is_expected.to validate_presence_of(:price) }
-    it { is_expected.to validate_presence_of(:rating) }
-    it { is_expected.to validate_presence_of(:status) }
-    it { is_expected.to validate_presence_of(:stock) }
+    it 'validates the name attribute' do
+      is_expected.to validate_presence_of(:name)
+    end
 
-    it { is_expected.to validate_numericality_of(:rating).is_greater_than(0) }
-    it { is_expected.to define_enum_for(:status).with_values(inactive: 0, active: 1) }
-    it { is_expected.to validate_numericality_of(:stock).is_greater_than(0) }
+    it 'validates the description attribute' do
+      is_expected.to validate_presence_of(:description)
+    end
 
+    it 'validates the price attribute' do
+      is_expected.to validate_presence_of(:price)
+    end
+
+    it 'validates the rating attribute' do
+      is_expected.to validate_presence_of(:rating)
+    end
+
+    it 'validates the status attribute' do
+      is_expected.to validate_presence_of(:status)
+    end
+
+    it 'validates the stock attribute' do
+      is_expected.to validate_presence_of(:stock)
+    end
+
+    it 'validates the rating attribute is greater than 0' do
+      is_expected.to validate_numericality_of(:rating).is_greater_than(0)
+    end
+
+    it 'validates the rating status is an enumerator' do
+      is_expected.to define_enum_for(:status).with_values(inactive: 0, active: 1)
+    end
+
+    it 'validates the rating attribute is greater than 0' do
+      is_expected.to validate_numericality_of(:stock).is_greater_than(0)
+    end
+  end
+
+  describe 'relations' do
     it 'has relationships' do
       expect(subject).to have_many(:category_products).dependent(:destroy)
       expect(subject).to have_many(:categories).through(:category_products)

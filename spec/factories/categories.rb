@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :category do
     name { Faker::Commerce.department }
-    parent_category_id { nil }
+    association :parent_category, strategy: :null
   end
 
   trait :with_parent_category do

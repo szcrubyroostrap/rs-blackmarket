@@ -7,14 +7,18 @@ RSpec.describe Category, type: :model do
       expect(subject).to have_db_column(:updated_at).of_type(:datetime).with_options(null: false)
     end
 
-    it 'has indices' do
+    it 'has indexes' do
       expect(subject).to have_db_index(:parent_category_id)
     end
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:name) }
+    it 'validates the name attribute' do
+      is_expected.to validate_presence_of(:name)
+    end
+  end
 
+  describe 'relations' do
     it 'has relationships' do
       expect(subject).to have_many(:category_products).dependent(:destroy)
       expect(subject).to have_many(:products).through(:category_products)

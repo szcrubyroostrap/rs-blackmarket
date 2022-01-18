@@ -7,7 +7,7 @@ RSpec.describe CategoryProduct, type: :model do
       expect(subject).to have_db_column(:updated_at).of_type(:datetime).with_options(null: false)
     end
 
-    it 'has indices' do
+    it 'has indexes' do
       expect(subject).to have_db_index(:product_id)
       expect(subject).to have_db_index(:category_id)
     end
