@@ -15,6 +15,34 @@ ActiveRecord::Schema.define(version: 2021_07_14_212223) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.bigint "parent_category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["parent_category_id"], name: "index_categories_on_parent_category_id"
+  end
+
+  create_table "category_products", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_category_products_on_category_id"
+    t.index ["product_id"], name: "index_category_products_on_product_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.text "description", default: "", null: false
+    t.integer "price", null: false
+    t.integer "rating", default: 0, null: false
+    t.integer "status", default: 0, null: false
+    t.integer "stock", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -36,4 +64,7 @@ ActiveRecord::Schema.define(version: 2021_07_14_212223) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "categories", "categories", column: "parent_category_id"
+  add_foreign_key "category_products", "categories"
+  add_foreign_key "category_products", "products"
 end
