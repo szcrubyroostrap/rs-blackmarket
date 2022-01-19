@@ -2,6 +2,8 @@ class CartProduct < ApplicationRecord
   belongs_to :cart
   belongs_to :product
 
+  validates :quantity, :total_amount, numericality: { greater_than: 0 }, presence: true
+
   validate :active_product, :product_quantity
 
   private

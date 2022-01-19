@@ -1,21 +1,24 @@
 module Api
   module V1
     class CartsController < Api::V1::ApiController
-      def add_product
-        load_cart
-        find_product
-        add_to_cart
+      before_action :load_cart, :find_product, :cart_item_management,
+                    only: %i[add_product remove_product]
 
-        render json: {
-          message: "#{add_to_cart_params[:quantity]} units of the Product #{@product.id} "\
-                   'have been successfully added'
-        },
-               status: :ok
+      def add_product
+        @item.add_to_cart
+
+        render json: { message: response_message }, status: :ok
+      end
+
+      def remove_product
+        @item.remove_from_cart
+
+        render json: { message: response_message }, status: :ok
       end
 
       private
 
-      def add_to_cart_params
+      def update_cart_params
         params.require(:cart).permit(:product_id, :quantity)
       end
 
@@ -24,17 +27,23 @@ module Api
       end
 
       def find_product
-        @product = Product.find(add_to_cart_params[:product_id])
+        @product = Product.find(update_cart_params[:product_id])
       end
 
-      def add_to_cart
-        cart_product = CartProduct.find_or_initialize_by(cart: @cart, product: @product)
-        cart_product.quantity += add_to_cart_params[:quantity]
-        cart_product.total_amount = @product.price * cart_product.quantity
-        cart_product.save!
+      def cart_item_management
+        @item = CartItemsManagementService.new(@cart, @product, update_cart_params[:quantity])
+      end
 
-        @cart.update!(total_items: @cart.calculate_total_items,
-                      total_price: @cart.calculate_total_price)
+      def response_message
+        action = case action_name
+                 when 'add_product'
+                   'added'
+                 when 'remove_product'
+                   'removed'
+                 end
+
+        "#{update_cart_params[:quantity]} #{'unit'.pluralize(update_cart_params[:quantity])} "\
+          "of the Product #{@product.id} have been successfully #{action}"
       end
     end
   end
