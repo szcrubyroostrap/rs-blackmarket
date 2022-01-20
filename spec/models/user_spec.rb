@@ -7,6 +7,12 @@ describe User do
     it { is_expected.to validate_presence_of(:password) }
   end
 
+  describe 'associations' do
+    it 'has relationships' do
+      expect(subject).to have_many(:carts).dependent(:destroy)
+    end
+  end
+
   describe '#create' do
     let(:params) { attributes_for(:user) }
 

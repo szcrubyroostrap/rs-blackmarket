@@ -38,7 +38,7 @@ RSpec.describe Product, type: :model do
     end
 
     it 'validates the rating attribute is greater than 0' do
-      is_expected.to validate_numericality_of(:rating).is_greater_than(0)
+      is_expected.to validate_numericality_of(:rating).is_greater_than_or_equal_to(0)
     end
 
     it 'validates the rating status is an enumerator' do
@@ -46,14 +46,15 @@ RSpec.describe Product, type: :model do
     end
 
     it 'validates the rating attribute is greater than 0' do
-      is_expected.to validate_numericality_of(:stock).is_greater_than(0)
+      is_expected.to validate_numericality_of(:stock).is_greater_than_or_equal_to(0)
     end
   end
 
-  describe 'relations' do
+  describe 'associations' do
     it 'has relationships' do
       expect(subject).to have_many(:category_products).dependent(:destroy)
       expect(subject).to have_many(:categories).through(:category_products)
+      expect(subject).to have_many(:cart_products).dependent(:destroy)
     end
   end
 end
