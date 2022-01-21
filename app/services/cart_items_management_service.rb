@@ -8,7 +8,7 @@ class CartItemsManagementService
   end
 
   def add_to_cart
-    raise Services::UnitsToOperateError if !@quantity.is_a?(Integer) || @quantity <= 0
+    validate_quantity_format
 
     cart_product = CartProduct.find_or_initialize_by(cart: @cart, product: @product)
     cart_product.quantity += @quantity
@@ -19,7 +19,7 @@ class CartItemsManagementService
   end
 
   def remove_from_cart
-    raise Services::UnitsToOperateError if !@quantity.is_a?(Integer) || @quantity <= 0
+    validate_quantity_format
 
     cart_product = CartProduct.find_by(cart: @cart, product: @product)
     raise Services::ProductToRemoveNotAddedError unless cart_product
@@ -46,5 +46,9 @@ class CartItemsManagementService
       cart_product.total_amount = @product.price * cart_product.quantity
       cart_product.save!
     end
+  end
+
+  def validate_quantity_format
+    raise Services::UnitsToOperateError if !@quantity.is_a?(Integer) || @quantity <= 0
   end
 end
