@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     namespace :v1, defaults: { format: :json } do # TODO: implement new routes later
       resource :carts, only: [:show] do
         collection do
-          post :add_product
-          post :remove_product
+          put :add_product
+          put :remove_product
         end
       end
     end

@@ -9,7 +9,7 @@ describe '/api/v1/carts/', type: :request do
   end
 
   describe 'add_product' do
-    subject { post '/api/v1/carts/add_product', headers: headers, params: params, as: :json }
+    subject { put '/api/v1/carts/add_product', headers: headers, params: params, as: :json }
 
     let(:params) do
       {
@@ -65,7 +65,7 @@ describe '/api/v1/carts/', type: :request do
   end
 
   describe 'remove_product' do
-    subject { post '/api/v1/carts/remove_product', headers: headers, params: params, as: :json }
+    subject { put '/api/v1/carts/remove_product', headers: headers, params: params, as: :json }
 
     let(:params) do
       {

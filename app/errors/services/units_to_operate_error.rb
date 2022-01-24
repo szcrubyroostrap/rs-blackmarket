@@ -1,6 +1,6 @@
 module Services
   class UnitsToOperateError < StandardError
-    def initialize(msg = 'it is not possible to operate with the quantity supplied')
+    def initialize(msg = I18n.t('errors.units_to_operate'))
       super(msg)
     end
   end

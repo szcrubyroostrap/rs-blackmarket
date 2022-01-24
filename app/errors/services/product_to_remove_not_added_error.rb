@@ -1,6 +1,6 @@
 module Services
   class ProductToRemoveNotAddedError < StandardError
-    def initialize(msg = 'there are no units of this product in the cart to remove')
+    def initialize(msg = I18n.t('errors.product_to_remove_not_added'))
       super(msg)
     end
   end

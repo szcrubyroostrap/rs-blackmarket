@@ -7,13 +7,13 @@ module Api
       def add_product
         @item.add_to_cart
 
-        render json: { message: response_message }, status: :ok
+        render json: { message: response_message('added') }, status: :ok
       end
 
       def remove_product
         @item.remove_from_cart
 
-        render json: { message: response_message }, status: :ok
+        render json: { message: response_message('removed') }, status: :ok
       end
 
       private
@@ -34,14 +34,7 @@ module Api
         @item = CartItemsManagementService.new(@cart, @product, update_cart_params[:quantity])
       end
 
-      def response_message
-        action = case action_name
-                 when 'add_product'
-                   'added'
-                 when 'remove_product'
-                   'removed'
-                 end
-
+      def response_message(action)
         "#{update_cart_params[:quantity]} #{'unit'.pluralize(update_cart_params[:quantity])} "\
           "of the Product #{@product.id} have been successfully #{action}"
       end
