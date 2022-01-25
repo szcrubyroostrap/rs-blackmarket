@@ -16,29 +16,16 @@ RSpec.describe CartProduct, type: :model do
   end
 
   describe 'associations' do
-    it 'has relationships' do
-      expect(subject).to belong_to(:cart)
-      expect(subject).to belong_to(:product)
-    end
+    it { expect(subject).to belong_to(:cart) }
+    it { expect(subject).to belong_to(:product) }
   end
 
   describe 'validations' do
     context 'when is an attribute supervision' do
-      it 'validates the quantity attribute' do
-        is_expected.to validate_presence_of(:quantity)
-      end
-
-      it 'validates the total_amount attribute' do
-        is_expected.to validate_presence_of(:total_amount)
-      end
-
-      it 'validates the quantity attribute is greater or equal than 0' do
-        is_expected.to validate_numericality_of(:quantity).is_greater_than_or_equal_to(0)
-      end
-
-      it 'validates the total_amount attribute is greater or equal than 0' do
-        is_expected.to validate_numericality_of(:total_amount).is_greater_than_or_equal_to(0)
-      end
+      it { is_expected.to validate_presence_of(:quantity) }
+      it { is_expected.to validate_presence_of(:total_amount) }
+      it { is_expected.to validate_numericality_of(:quantity).is_greater_than_or_equal_to(0) }
+      it { is_expected.to validate_numericality_of(:total_amount).is_greater_than_or_equal_to(0) }
     end
 
     context 'when is a supervision with the product' do

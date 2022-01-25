@@ -1,8 +1,7 @@
 module Api
   module V1
     class CartsController < Api::V1::ApiController
-      before_action :load_cart, :find_product, :cart_item_management,
-                    only: %i[add_product remove_product]
+      before_action :cart_item_management, only: %i[add_product remove_product]
 
       def add_product
         @item.add_to_cart
@@ -22,16 +21,16 @@ module Api
         params.require(:cart).permit(:product_id, :quantity)
       end
 
-      def load_cart
-        @cart = current_user.carts.find_or_create_by!(status: :in_process)
+      def cart
+        @cart ||= current_user.carts.find_or_create_by!(status: :in_process)
       end
 
-      def find_product
-        @product = Product.find(update_cart_params[:product_id])
+      def product
+        @product ||= Product.find(update_cart_params[:product_id])
       end
 
       def cart_item_management
-        @item = CartItemsManagementService.new(@cart, @product, update_cart_params[:quantity])
+        @item = CartItemsManagementService.new(cart, product, update_cart_params[:quantity])
       end
 
       def response_message(action)

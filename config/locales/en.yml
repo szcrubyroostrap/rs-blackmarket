@@ -4,3 +4,5 @@ en:
     product_to_remove_not_added: there are no units of this product in the cart to remove
     units_to_operate: it is not possible to operate with the quantity supplied
     remove_more_products_than_were_added: quantity %{quantity} of product %{product_id} to be removed exceed those added to the cart
+    product_not_available: Product is not available
+    product_quantity: Product quantity cannot be added

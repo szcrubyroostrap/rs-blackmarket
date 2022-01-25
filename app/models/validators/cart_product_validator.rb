@@ -12,13 +12,13 @@ module Validators
     def active_product
       return if product&.active?
 
-      errors.add(:base, 'Product is not available')
+      errors.add(:base, I18n.t('errors.product_not_available'))
     end
 
     def product_quantity
       return if product && product.stock >= quantity
 
-      errors.add(:base, 'Product quantity cannot be added')
+      errors.add(:base, I18n.t('errors.product_quantity'))
     end
   end
 end
