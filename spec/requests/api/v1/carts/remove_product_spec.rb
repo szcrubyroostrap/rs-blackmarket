@@ -13,11 +13,11 @@ describe 'PUT /api/v1/carts/remove_product', type: :request do
   end
 
   context 'when response is successful' do
+    let(:cart) { create(:cart, user: user, total_items: 2, total_price: 20) }
+    let(:product) { create(:product, price: 10) }
     let!(:cart_product) do
       create(:cart_product, cart: cart, product: product, quantity: 2, total_amount: total_amount)
     end
-    let(:cart) { create(:cart, user: user, total_items: 2, total_price: 20) }
-    let(:product) { create(:product, price: 10) }
     let(:total_amount) { product.price * 2 }
     let(:quantity) { 1 }
 
