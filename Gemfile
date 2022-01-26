@@ -37,6 +37,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 6.2.0'
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails', '~> 5.0.1'
+  gem 'bullet', '~> 6.1.4'
 end
 
 group :development do
@@ -44,7 +45,7 @@ group :development do
   gem 'rubocop-rails', '~> 2.11.3'
   gem 'rubocop-rootstrap', '~> 1.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  gem 'spring', '~> 2.1.1'
 end
 
 group :test do
