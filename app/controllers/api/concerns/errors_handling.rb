@@ -7,7 +7,6 @@ module Api
         rescue_from StandardError, with: :standard_error
         rescue_from ActionController::ParameterMissing, with: :parameter_missing
         rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-        rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
         rescue_from Services::UnitsToOperateError, with: :standard_error
         rescue_from Services::ProductToRemoveNotAddedError, with: :standard_error
         rescue_from Services::RemoveMoreProductsThanWereAddedError, with: :standard_error
@@ -25,10 +24,6 @@ module Api
 
       def record_not_found(exception)
         render json: { error: exception.exception.message }, status: :not_found
-      end
-
-      def record_invalid(exception)
-        render json: { error: exception.record.errors.as_json }, status: :bad_request
       end
     end
   end
