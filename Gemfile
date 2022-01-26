@@ -31,16 +31,17 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # gem 'rack-cors'
 
 group :development, :test do
+  gem 'bullet', '~> 6.1.4'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails', '~> 2.7.6'
   gem 'factory_bot_rails', '~> 6.2.0'
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails', '~> 5.0.1'
-  gem 'bullet', '~> 6.1.4'
 end
 
 group :development do
+  gem 'brakeman', '~> 5.2.0'
   gem 'listen', '~> 3.3'
   gem 'rubocop-rails', '~> 2.11.3'
   gem 'rubocop-rootstrap', '~> 1.2'
