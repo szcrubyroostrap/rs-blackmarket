@@ -43,6 +43,7 @@ end
 group :development do
   gem 'brakeman', '~> 5.2.0'
   gem 'listen', '~> 3.3'
+  gem 'reek', '~> 6.0.6'
   gem 'rubocop-rails', '~> 2.11.3'
   gem 'rubocop-rootstrap', '~> 1.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
