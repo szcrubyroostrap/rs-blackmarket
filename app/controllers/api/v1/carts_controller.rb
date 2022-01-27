@@ -1,16 +1,14 @@
 module Api
   module V1
     class CartsController < Api::V1::ApiController
-      before_action :cart_item_management, only: %i[add_product remove_product]
-
       def add_product
-        @item.add_to_cart
+        cart_item_management.add_to_cart
 
         render json: { message: response_message('added') }, status: :ok
       end
 
       def remove_product
-        @item.remove_from_cart
+        cart_item_management.remove_from_cart
 
         render json: { message: response_message('removed') }, status: :ok
       end
@@ -30,12 +28,14 @@ module Api
       end
 
       def cart_item_management
-        @item = CartItemsManagementService.new(cart, product, update_cart_params[:quantity])
+        CartItemsManagementService.new(cart, product, update_cart_params[:quantity])
       end
 
       def response_message(action)
-        "#{update_cart_params[:quantity]} #{'unit'.pluralize(update_cart_params[:quantity])} "\
-          "of the Product #{@product.id} have been successfully #{action}"
+        quantity = update_cart_params[:quantity]
+
+        "#{quantity} #{'unit'.pluralize(quantity)} of the Product #{@product.id} "\
+          "have been successfully #{action}"
       end
     end
   end
