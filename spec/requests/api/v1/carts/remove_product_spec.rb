@@ -25,10 +25,6 @@ describe 'PUT /api/v1/carts/remove_product', type: :request do
 
     it_behaves_like 'response successful'
 
-    it 'returns http success code' do
-      expect(response).to be_successful
-    end
-
     it 'returns correct json message' do
       msg = "1 unit of the Product #{product.id} have been successfully removed"
 
