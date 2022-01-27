@@ -1,6 +1,13 @@
 module Api
   module V1
     class CartsController < Api::V1::ApiController
+      def collection
+        cart = current_user.carts.find_by(status: :in_process)
+        raise Api::CartNotFoundError, { user_id: current_user.id } unless cart
+
+        render json: CartSerializer.render(cart, view: :with_product_resume), status: :ok
+      end
+
       def add_product
         cart_item_management.add_to_cart
 

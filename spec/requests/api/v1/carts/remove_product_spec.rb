@@ -1,5 +1,5 @@
 describe 'PUT /api/v1/carts/remove_product', type: :request do
-  subject { put remove_product_api_v1_carts_path, headers: headers, params: params, as: :json }
+  subject { put api_v1_remove_product_path, headers: headers, params: params, as: :json }
 
   let(:headers) { auth_headers }
   let(:user) { create(:user) }

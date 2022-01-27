@@ -10,6 +10,7 @@ module Api
         rescue_from Services::UnitsToOperateError, with: :standard_error
         rescue_from Services::ProductToRemoveNotAddedError, with: :standard_error
         rescue_from Services::RemoveMoreProductsThanWereAddedError, with: :standard_error
+        rescue_from Api::CartNotFoundError, with: :record_not_found
       end
 
       private

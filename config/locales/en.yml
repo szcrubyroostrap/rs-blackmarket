@@ -6,3 +6,4 @@ en:
     remove_more_products_than_were_added: quantity %{quantity} of product %{product_id} to be removed exceed those added to the cart
     product_not_available: Product is not available
     product_quantity: Product quantity cannot be added
+    cart_not_found: Cart not found for user %{user_id}
