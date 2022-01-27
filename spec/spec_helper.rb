@@ -4,7 +4,9 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'factory_bot_rails'
 require 'helpers'
 require 'shoulda/matchers'
+require 'simplecov'
 
+SimpleCov.start
 FactoryBot.factories.clear
 FactoryBot.reload
 

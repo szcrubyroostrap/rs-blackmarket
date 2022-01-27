@@ -43,3 +43,4 @@ config/secrets.yml
 
 /public/packs
 /public/packs-test
+coverage
