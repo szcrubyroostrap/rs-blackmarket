@@ -49,5 +49,13 @@ describe 'PUT /api/v1/carts/add_product', type: :request do
 
       it_behaves_like 'response bad_request'
     end
+
+    context 'when user not logged in' do
+      let(:headers) { nil }
+      let(:quantity) { 1 }
+      let(:product) { create(:product) }
+
+      it_behaves_like 'user is not logged in'
+    end
   end
 end
