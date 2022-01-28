@@ -1,5 +1,5 @@
 describe 'GET /api/v1/carts/add_product', type: :request do
-  subject { get api_v1_collection_path, headers: headers, as: :json }
+  subject { get collection_api_v1_carts_path, headers: headers, as: :json }
 
   let(:headers) { auth_headers }
   let(:user) { create(:user) }
@@ -8,37 +8,56 @@ describe 'GET /api/v1/carts/add_product', type: :request do
     before { subject }
 
     context 'when cart does not exist' do
-      it_behaves_like 'response not found'
+      it_behaves_like 'a not found request'
     end
 
     context 'when user not logged in' do
       let(:headers) { nil }
 
-      it_behaves_like 'user is not logged in'
+      it_behaves_like 'an unauthorised request'
     end
   end
 
   context 'when response is successful' do
-    let(:cart) { create(:cart, user: user, total_items: 2, total_price: 20) }
+    let(:cart) { create(:cart, user: user, total_items: quantity, total_price: 20) }
     let(:product) { create(:product, price: 10) }
     let!(:cart_product) do
-      create(:cart_product, cart: cart, product: product, quantity: 2, total_amount: total_amount)
+      create(:cart_product, cart: cart, product: product, quantity: quantity,
+                            total_amount: total_amount)
     end
-    let(:total_amount) { product.price * 2 }
+    let(:quantity) { 2 }
+    let(:total_amount) { product.price * quantity }
 
     before { subject }
 
-    it_behaves_like 'response successful'
-
-    it 'returns the correct response keys' do
-      expect(json.keys).to contain_exactly('id', 'products', 'status', 'total_items',
-                                           'total_price', 'user')
-    end
+    it_behaves_like 'a successful request'
 
     it 'returns the schema information specified in the serializer' do
-      data_serialized = CartSerializer.render_as_json(cart, view: :with_product_resume)
-
-      expect(json).to eq(data_serialized)
+      expect(json).to include_json(
+        id: cart.id,
+        products: [
+          {
+            id: product.id,
+            cart_products: [
+              {
+                id: cart_product.id,
+                quantity: quantity,
+                total_amount: total_amount
+              }
+            ],
+            description: product.description,
+            name: product.name,
+            price: product.price
+          }
+        ],
+        status: 'in_process',
+        total_items: quantity,
+        total_price: total_amount,
+        user: {
+          id: user.id,
+          email: user.email
+        }
+      )
     end
   end
 end

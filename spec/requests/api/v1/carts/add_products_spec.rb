@@ -1,5 +1,5 @@
 describe 'PUT /api/v1/carts/add_product', type: :request do
-  subject { put api_v1_add_product_path, headers: headers, params: params, as: :json }
+  subject { put add_product_api_v1_carts_path, headers: headers, params: params, as: :json }
 
   let(:headers) { auth_headers }
   let(:user) { create(:user) }
@@ -18,7 +18,7 @@ describe 'PUT /api/v1/carts/add_product', type: :request do
     let(:product) { create(:product) }
     let(:quantity) { 1 }
 
-    it_behaves_like 'response successful'
+    it_behaves_like 'a successful request'
 
     it 'returns correct json message' do
       msg = "#{quantity} unit of the Product #{product.id} have been successfully added"
@@ -32,14 +32,14 @@ describe 'PUT /api/v1/carts/add_product', type: :request do
       let(:product) { build(:product) }
       let(:quantity) { 1 }
 
-      it_behaves_like 'response not found'
+      it_behaves_like 'a not found request'
     end
 
     context 'when quantity param format is not valid' do
       let(:product) { create(:product) }
       let(:quantity) { 'not valid' }
 
-      it_behaves_like 'response bad_request'
+      it_behaves_like 'a bad request'
     end
 
     context 'when request format is not valid' do
@@ -47,7 +47,7 @@ describe 'PUT /api/v1/carts/add_product', type: :request do
       let(:quantity) { 1 }
       let(:params) { { product_id: product.id, quantity: quantity } }
 
-      it_behaves_like 'response bad_request'
+      it_behaves_like 'a bad request'
     end
 
     context 'when user not logged in' do
@@ -55,7 +55,7 @@ describe 'PUT /api/v1/carts/add_product', type: :request do
       let(:quantity) { 1 }
       let(:product) { create(:product) }
 
-      it_behaves_like 'user is not logged in'
+      it_behaves_like 'an unauthorised request'
     end
   end
 end

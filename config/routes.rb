@@ -6,9 +6,13 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1, defaults: { format: :json } do
-      put :add_product, to: 'carts#add_product', path: 'carts/add_product'
-      put :remove_product, to: 'carts#remove_product', path: 'carts/remove_product'
-      get :collection, to: 'carts#collection', path: 'carts/collection'
+      resource :carts, only: [] do
+        collection do
+          put :add_product
+          put :remove_product
+          get :collection
+        end
+      end
     end
   end
 end

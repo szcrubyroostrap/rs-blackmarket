@@ -1,4 +1,4 @@
-shared_examples 'user is not logged in' do
+shared_examples 'an unauthorised request' do
   it 'returns unauthorized code' do
     expect(response).to be_unauthorized
   end
