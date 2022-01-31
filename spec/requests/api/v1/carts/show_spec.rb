@@ -1,5 +1,5 @@
-describe 'GET /api/v1/carts/add_product', type: :request do
-  subject { get collection_api_v1_carts_path, headers: headers, as: :json }
+describe 'GET /api/v1/cart', type: :request do
+  subject { get api_v1_cart_path, headers: headers, as: :json }
 
   let(:headers) { auth_headers }
   let(:user) { create(:user) }

@@ -1,9 +1,11 @@
 ---
 en:
   errors:
-    product_to_remove_not_added: there are no units of this product in the cart to remove
+    product_to_remove_not_added: there are no units of this Product %{product_id} in the cart to remove
     units_to_operate: it is not possible to operate with the quantity supplied
     remove_more_products_than_were_added: quantity %{quantity} of product %{product_id} to be removed exceed those added to the cart
     product_not_available: Product is not available
     product_quantity: Product quantity cannot be added
     cart_not_found: Cart not found for user %{user_id}
+    creating_product_in_cart: It is not possible to create Product %{product_id} since it is in the cart
+    missing_product_update: Product %{product_id} cannot be updated as it is not added to the cart

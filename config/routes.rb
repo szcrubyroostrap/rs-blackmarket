@@ -6,12 +6,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1, defaults: { format: :json } do
-      resource :carts, only: [] do
-        collection do
-          put :add_product
-          put :remove_product
-          get :collection
-        end
+      resource :cart, only: :show do
+        resources :products, only: %i[create destroy update]
       end
     end
   end
