@@ -45,6 +45,7 @@ end
 group :development do
   gem 'brakeman', '~> 5.2.0'
   gem 'listen', '~> 3.3'
+  gem 'rails_best_practices', '~> 1.22.1'
   gem 'reek', '~> 6.0.6'
   gem 'rubocop-rails', '~> 2.11.3'
   gem 'rubocop-rootstrap', '~> 1.2'

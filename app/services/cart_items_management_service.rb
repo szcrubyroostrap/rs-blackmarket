@@ -29,11 +29,10 @@ class CartItemsManagementService
   def update_product_units_in_cart(units)
     @quantity = units
     validate_quantity!
-
     raise Services::MissingProductUpdateError, product_id_data unless cart_product
 
     cart_product.quantity += quantity
-    product_operation
+    cart_product_treatment
 
     update_cart!
   end
@@ -41,11 +40,10 @@ class CartItemsManagementService
   private
 
   def update_cart!
-    @cart.update!(total_items: cart.calculate_total_items,
-                  total_price: cart.calculate_total_price)
+    @cart.update!(total_items: cart.calculate_total_items, total_price: cart.calculate_total_price)
   end
 
-  def product_operation
+  def cart_product_treatment
     remaining_quantity = cart_product.quantity
     validate_products_quantity_to_remove!(remaining_quantity)
 

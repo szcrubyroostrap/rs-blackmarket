@@ -1,4 +1,4 @@
-describe 'PUT /api/v1/cart/products', type: :request do
+describe 'PUT /api/v1/cart/products/:id', type: :request do
   subject { put api_v1_cart_product_path(product.id), headers: headers, params: params, as: :json }
 
   let(:headers) { auth_headers }
