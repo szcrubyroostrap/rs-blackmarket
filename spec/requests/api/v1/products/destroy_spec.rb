@@ -14,16 +14,8 @@ describe 'DELETE /api/v1/cart/products/:id', type: :request do
 
     before { subject }
 
-    it_behaves_like 'a successful request'
-
-    it 'returns the schema information specified in the serializer' do
-      expect(json).to include_json(
-        id: product.id,
-        cart_products: [],
-        description: product.description,
-        name: product.name,
-        price: product.price
-      )
+    it 'returns no content status code' do
+      expect(response).to be_no_content
     end
   end
 

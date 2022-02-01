@@ -32,7 +32,7 @@ describe 'GET /api/v1/cart', type: :request do
 
     it_behaves_like 'a successful request'
 
-    it 'returns the schema information specified in the serializer' do
+    it 'returns cart info' do
       expect(json).to include_json(
         id: cart.id,
         products: [

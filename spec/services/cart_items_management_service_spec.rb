@@ -1,6 +1,6 @@
 describe CartItemsManagementService, type: :service do
-  describe '#create_product_in_cart' do
-    subject { CartItemsManagementService.new(cart, product).create_product_in_cart }
+  describe '#create_product!' do
+    subject { CartItemsManagementService.new(cart, product).create_product! }
 
     let(:cart) { create(:cart, :with_user) }
     let(:product) { create(:product) }
@@ -43,8 +43,8 @@ describe CartItemsManagementService, type: :service do
     end
   end
 
-  describe '#remove_product_from_cart' do
-    subject { CartItemsManagementService.new(cart, product).remove_product_from_cart }
+  describe '#remove_product!' do
+    subject { CartItemsManagementService.new(cart, product).remove_product! }
 
     let(:cart) { create(:cart, :with_user, total_items: 11, total_price: 22) }
     let(:product) { create(:product) }
@@ -87,8 +87,8 @@ describe CartItemsManagementService, type: :service do
     end
   end
 
-  describe '#update_product_units_in_cart' do
-    subject { CartItemsManagementService.new(cart, product).update_product_units_in_cart(units) }
+  describe '#update_product_units!' do
+    subject { CartItemsManagementService.new(cart, product).update_product_units!(units) }
 
     let(:cart) { create(:cart, :with_user, total_items: 11, total_price: 22) }
     let(:product) { create(:product, price: 10) }

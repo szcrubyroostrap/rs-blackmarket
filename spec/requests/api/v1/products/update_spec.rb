@@ -26,7 +26,7 @@ describe 'PUT /api/v1/cart/products/:id', type: :request do
 
       it_behaves_like 'a successful request'
 
-      it 'returns the schema information specified in the serializer' do
+      it 'returns product info' do
         expect(json).to include_json(
           id: product.id,
           cart_products: [

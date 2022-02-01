@@ -2,19 +2,19 @@ module Api
   module V1
     class ProductsController < Api::V1::ApiController
       def create
-        cart_item_management.create_product_in_cart
+        cart_item_management.create_product!
 
         render json: response_data, status: :created
       end
 
       def destroy
-        cart_item_management.remove_product_from_cart
+        cart_item_management.remove_product!
 
-        render json: response_data, status: :ok
+        head :no_content
       end
 
       def update
-        cart_item_management.update_product_units_in_cart(product_params[:quantity])
+        cart_item_management.update_product_units!(product_params[:quantity])
 
         render json: response_data, status: :ok
       end

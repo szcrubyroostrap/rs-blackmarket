@@ -8,7 +8,7 @@ class CartItemsManagementService
     @cart_product = CartProduct.find_by(cart: cart, product: product)
   end
 
-  def create_product_in_cart
+  def create_product!
     raise Services::CreatingProductInCartError, product_id_data if cart_product
 
     @quantity = 1
@@ -18,7 +18,7 @@ class CartItemsManagementService
     update_cart!
   end
 
-  def remove_product_from_cart
+  def remove_product!
     raise Services::ProductToRemoveNotAddedError, product_id_data unless cart_product
 
     cart_product.destroy!
@@ -26,7 +26,7 @@ class CartItemsManagementService
     update_cart!
   end
 
-  def update_product_units_in_cart(units)
+  def update_product_units!(units)
     @quantity = units
     validate_quantity!
     raise Services::MissingProductUpdateError, product_id_data unless cart_product

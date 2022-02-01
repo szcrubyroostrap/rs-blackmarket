@@ -18,7 +18,7 @@ describe 'POST /api/v1/cart/products', type: :request do
 
     it_behaves_like 'a successful request'
 
-    it 'returns the schema information specified in the serializer' do
+    it 'returns product info' do
       cart_product = CartProduct.find_by(cart: user.carts.first, product: product)
 
       expect(json).to include_json(
