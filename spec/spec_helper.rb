@@ -5,6 +5,7 @@ require 'factory_bot_rails'
 require 'helpers'
 require 'shoulda/matchers'
 require 'simplecov'
+require 'rspec/json_expectations'
 
 SimpleCov.start
 FactoryBot.factories.clear
