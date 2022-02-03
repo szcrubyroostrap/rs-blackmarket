@@ -1,0 +1,68 @@
+env:
+  RAILS_ENV: test
+  DATABASE_USER: postgres
+  DATABASE_PASSWORD: postgres
+
+name: Verify
+on: [pull_request]
+
+jobs:
+  verify:
+    name: Linters and Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/postgresql/data
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_DB: rs_blackmarket_api_test
+          POSTGRES_USER: ${{env.DATABASE_USER}}
+          POSTGRES_PASSWORD: ${{env.DATABASE_PASSWORD}}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check out repository code
+        run: |
+          echo "Branch evaluated ${{ github.ref }} in ${{ github.repository }} repository."
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.4
+          bundler-cache: true
+
+      - name: Set up NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.18.2
+
+      - name: Set up NodeJS cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get -yqq install libpq-dev build-essential libcurl4-openssl-dev
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          npm install --global yarn
+          yarn install
+      - name: Run linters and security checks
+        run: bundler exec rake code:analysis
+
+      - name: Setup test database
+        run: bundler exec rails db:schema:load
+
+      - name: Run tests
+        run: bundler exec rspec
