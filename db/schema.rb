@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_18_201942) do
+ActiveRecord::Schema.define(version: 2022_02_04_170108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "home_address", null: false
+    t.string "zip_code"
+    t.bigint "city_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["city_id"], name: "index_addresses_on_city_id"
+    t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
 
   create_table "cart_products", force: :cascade do |t|
     t.bigint "cart_id", null: false
@@ -53,6 +64,20 @@ ActiveRecord::Schema.define(version: 2022_01_18_201942) do
     t.index ["product_id"], name: "index_category_products_on_product_id"
   end
 
+  create_table "cities", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "country_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_id"], name: "index_cities_on_country_id"
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.text "description", default: "", null: false
@@ -85,10 +110,13 @@ ActiveRecord::Schema.define(version: 2022_01_18_201942) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "addresses", "cities"
+  add_foreign_key "addresses", "users"
   add_foreign_key "cart_products", "carts"
   add_foreign_key "cart_products", "products"
   add_foreign_key "carts", "users"
   add_foreign_key "categories", "categories", column: "parent_category_id"
   add_foreign_key "category_products", "categories"
   add_foreign_key "category_products", "products"
+  add_foreign_key "cities", "countries"
 end

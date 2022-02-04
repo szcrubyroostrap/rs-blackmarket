@@ -9,6 +9,14 @@ Rails.application.routes.draw do
       resource :cart, only: :show do
         resources :products, only: %i[create destroy update]
       end
+
+      resources :users, only: [] do
+        resources :addresses, except: %i[edit new]
+      end
+
+      resources :countries, except: %i[edit new] do
+        resources :cities, except: %i[edit new]
+      end
     end
   end
 end
