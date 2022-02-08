@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 2022_02_04_170108) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["country_id"], name: "index_cities_on_country_id"
+    t.index ["name"], name: "index_cities_on_name", unique: true
   end
 
   create_table "countries", force: :cascade do |t|

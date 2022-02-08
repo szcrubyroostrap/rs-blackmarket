@@ -2,5 +2,5 @@ class City < ApplicationRecord
   belongs_to :country
   has_many :addresses, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 end

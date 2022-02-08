@@ -1,11 +1,14 @@
-describe 'DELETE /api/v1/countries/:id', type: :request do
-  subject { delete api_v1_country_path(country.id), headers: headers, as: :json }
+describe 'DELETE api/v1/countries/:country_id/cities/:id', type: :request do
+  subject do
+    delete api_v1_country_city_path(country_id: city.country.id, id: city.id), headers: headers,
+                                                                               as: :json
+  end
 
   let(:headers) { auth_headers }
   let(:user) { create(:user) }
 
   context 'when response is successful' do
-    let(:country) { create(:country) }
+    let(:city) { create(:city) }
 
     before { subject }
 
@@ -19,13 +22,13 @@ describe 'DELETE /api/v1/countries/:id', type: :request do
 
     context 'when user not logged in' do
       let(:headers) { nil }
-      let(:country) { create(:country) }
+      let(:city) { create(:city) }
 
       it_behaves_like 'an unauthorised request'
     end
 
-    context 'when country does not exist' do
-      let(:country) { build(:country, id: 1) }
+    context 'when city does not exist' do
+      let(:city) { build(:city, id: 1) }
 
       it_behaves_like 'a not found request'
     end

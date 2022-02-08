@@ -1,15 +1,18 @@
-describe 'GET /api/v1/contries/:id', type: :request do
-  subject { get api_v1_country_path(country.id), headers: headers, as: :json }
+describe 'GET /api/v1/countries/:country_id/cities/:id', type: :request do
+  subject do
+    get api_v1_country_city_path(country_id: city.country.id, id: city.id), headers: headers,
+                                                                            as: :json
+  end
 
   let(:headers) { auth_headers }
   let(:user) { create(:user) }
 
   context 'when response is an error' do
-    let(:country) { build(:country, id: 0) }
+    let(:city) { build(:city, id: 0) }
 
     before { subject }
 
-    context 'when country does not exist' do
+    context 'when city does not exist' do
       it_behaves_like 'a not found request'
     end
 
@@ -21,16 +24,16 @@ describe 'GET /api/v1/contries/:id', type: :request do
   end
 
   context 'when response is successful' do
-    let(:country) { create(:country) }
+    let(:city) { create(:city) }
 
     before { subject }
 
     it_behaves_like 'a successful request'
 
-    it 'returns country info' do
+    it 'returns city info' do
       expect(json).to include_json(
-        id: country.id,
-        name: country.name
+        id: city.id,
+        name: city.name
       )
     end
   end
