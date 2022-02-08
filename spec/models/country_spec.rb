@@ -11,5 +11,11 @@ RSpec.describe Country, type: :model do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:name) }
+
+    context 'when validating unique values' do
+      subject { create(:country) }
+
+      it { is_expected.to validate_uniqueness_of(:name) }
+    end
   end
 end

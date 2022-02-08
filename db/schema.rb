@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2022_02_04_170108) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_countries_on_name", unique: true
   end
 
   create_table "products", force: :cascade do |t|
