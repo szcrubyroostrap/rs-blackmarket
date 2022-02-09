@@ -2,7 +2,7 @@ module Api
   module V1
     class CountriesController < Api::V1::ApiController
       def index
-        render json: CountrySerializer.render(Country.all, root: :countries), status: :ok
+        render json: CountrySerializer.render(Country.all), status: :ok
       end
 
       def create

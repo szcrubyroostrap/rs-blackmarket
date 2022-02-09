@@ -11,11 +11,11 @@ describe 'PUT /api/v1/countries/:id', type: :request do
     }
   end
 
+  before { subject }
+
   context 'when response is successful' do
     let(:country) { create(:country) }
     let(:name) { 'foo' }
-
-    before { subject }
 
     it_behaves_like 'a successful request'
 
@@ -29,8 +29,6 @@ describe 'PUT /api/v1/countries/:id', type: :request do
 
   context 'when response is an error' do
     let(:name) { country.name }
-
-    before { subject }
 
     context 'when country does not exist' do
       let(:country) { build(:country, id: 1) }

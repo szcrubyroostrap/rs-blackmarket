@@ -4,10 +4,10 @@ describe 'GET /api/v1/contries/:id', type: :request do
   let(:headers) { auth_headers }
   let(:user) { create(:user) }
 
+  before { subject }
+
   context 'when response is an error' do
     let(:country) { build(:country, id: 0) }
-
-    before { subject }
 
     context 'when country does not exist' do
       it_behaves_like 'a not found request'
@@ -22,8 +22,6 @@ describe 'GET /api/v1/contries/:id', type: :request do
 
   context 'when response is successful' do
     let(:country) { create(:country) }
-
-    before { subject }
 
     it_behaves_like 'a successful request'
 

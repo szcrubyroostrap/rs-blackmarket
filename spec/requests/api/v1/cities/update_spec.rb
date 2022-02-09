@@ -15,26 +15,28 @@ describe 'PUT /api/v1/countries/:country_id/cities/:id', type: :request do
     }
   end
 
+  before { subject }
+
   context 'when response is successful' do
     let(:city) { create(:city) }
     let(:city_name) { 'foo' }
-
-    before { subject }
 
     it_behaves_like 'a successful request'
 
     it 'returns city info' do
       expect(json).to include_json(
         id: city.id,
-        name: city_name
+        name: city_name,
+        country: {
+          id: city.country.id,
+          name: city.country.name
+        }
       )
     end
   end
 
   context 'when response is an error' do
     let(:city_name) { city.name }
-
-    before { subject }
 
     context 'when city does not exist' do
       let(:city) { build(:city, id: 1) }

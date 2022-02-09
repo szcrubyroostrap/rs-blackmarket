@@ -10,7 +10,7 @@ Rails.application.routes.draw do
         resources :products, only: %i[create destroy update]
       end
 
-      resources :users, only: [] do
+      resource :user, only: [] do
         resources :addresses, except: %i[edit new]
       end
 

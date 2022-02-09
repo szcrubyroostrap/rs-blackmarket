@@ -5,15 +5,18 @@ describe 'GET /api/v1/countries', type: :request do
   let(:user) { create(:user) }
 
   context 'when there are countries created' do
-    let!(:countries) { create_list(:country, 2) }
+    let(:countries) { create_list(:country, 2) }
 
-    before { subject }
+    before do
+      countries
+      subject
+    end
 
     it_behaves_like 'a successful request'
 
     it 'returns country info' do
-      expect(json).to include_json(
-        countries: countries.map do |country|
+      expect(response.body).to include_json(
+        countries.map do |country|
           {
             id: country.id,
             name: country.name
@@ -28,8 +31,8 @@ describe 'GET /api/v1/countries', type: :request do
 
     it_behaves_like 'a successful request'
 
-    it 'returns country info' do
-      expect(json).to include_json(countries: [])
+    it 'returns empty country info' do
+      expect(response.body).to include_json([])
     end
   end
 

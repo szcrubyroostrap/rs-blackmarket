@@ -2,23 +2,23 @@ module Api
   module V1
     class CitiesController < Api::V1::ApiController
       def index
-        render json: CitySerializer.render(country.cities, root: :cities), status: :ok
+        render json: CitySerializer.render(country.cities, view: :with_associations), status: :ok
       end
 
       def create
         new_city = country.cities.create!(cities_params)
 
-        render json: CitySerializer.render(new_city, view: :with_country), status: :created
+        render json: CitySerializer.render(new_city, view: :with_associations), status: :created
       end
 
       def show
-        render json: CitySerializer.render(city), status: :ok
+        render json: CitySerializer.render(city, view: :with_associations), status: :ok
       end
 
       def update
         city.update!(cities_params)
 
-        render json: CitySerializer.render(city), status: :ok
+        render json: CitySerializer.render(city, view: :with_associations), status: :ok
       end
 
       def destroy

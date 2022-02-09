@@ -3,21 +3,28 @@ describe 'GET /api/v1/countries/:country_id/cities', type: :request do
 
   let(:headers) { auth_headers }
   let(:user) { create(:user) }
-  let!(:country) { create(:country) }
+  let(:country) { create(:country) }
 
   context 'when there are cities created' do
-    let!(:cities) { create_list(:city, 2, country: country) }
+    let(:cities) { create_list(:city, 2, country: country) }
 
-    before { subject }
+    before do
+      cities
+      subject
+    end
 
     it_behaves_like 'a successful request'
 
     it 'returns cities info' do
-      expect(json).to include_json(
-        cities: cities.map do |city|
+      expect(response.body).to include_json(
+        cities.map do |city|
           {
             id: city.id,
-            name: city.name
+            name: city.name,
+            country: {
+              id: city.country.id,
+              name: city.country.name
+            }
           }
         end
       )
@@ -29,8 +36,8 @@ describe 'GET /api/v1/countries/:country_id/cities', type: :request do
 
     it_behaves_like 'a successful request'
 
-    it 'returns city info' do
-      expect(json).to include_json(cities: [])
+    it 'returns empty city info' do
+      expect(response.body).to include_json([])
     end
   end
 

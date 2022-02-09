@@ -4,10 +4,10 @@ describe 'DELETE /api/v1/countries/:id', type: :request do
   let(:headers) { auth_headers }
   let(:user) { create(:user) }
 
+  before { subject }
+
   context 'when response is successful' do
     let(:country) { create(:country) }
-
-    before { subject }
 
     it 'returns no content status code' do
       expect(response).to be_no_content
@@ -15,8 +15,6 @@ describe 'DELETE /api/v1/countries/:id', type: :request do
   end
 
   context 'when response is an error' do
-    before { subject }
-
     context 'when user not logged in' do
       let(:headers) { nil }
       let(:country) { create(:country) }

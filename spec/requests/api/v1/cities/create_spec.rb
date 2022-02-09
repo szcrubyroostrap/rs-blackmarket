@@ -6,7 +6,8 @@ describe 'POST /api/v1/countries/:country_id/cities', type: :request do
 
   let(:headers) { auth_headers }
   let(:user) { create(:user) }
-  let!(:country) { create(:country) }
+  let(:country) { create(:country) }
+  let(:city_name) { Faker::Address.city }
   let(:params) do
     {
       city: {
@@ -18,8 +19,6 @@ describe 'POST /api/v1/countries/:country_id/cities', type: :request do
   before { subject }
 
   context 'when response is successful' do
-    let(:city_name) { 'foo' }
-
     it_behaves_like 'a successful request'
 
     it 'returns city info' do
@@ -35,8 +34,7 @@ describe 'POST /api/v1/countries/:country_id/cities', type: :request do
 
   context 'when response is an error' do
     context 'when request format is not valid' do
-      let(:city) { build(:city) }
-      let(:params) { { names: city.name } }
+      let(:params) { { names: city_name } }
 
       it_behaves_like 'a bad request'
     end
@@ -49,7 +47,6 @@ describe 'POST /api/v1/countries/:country_id/cities', type: :request do
     end
 
     context 'when user not logged in' do
-      let(:city_name) { 'foo' }
       let(:headers) { nil }
 
       it_behaves_like 'an unauthorised request'

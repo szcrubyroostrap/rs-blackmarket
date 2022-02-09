@@ -3,11 +3,11 @@ class CitySerializer < Blueprinter::Base
 
   fields :name
 
-  view :with_country do
+  view :with_associations do
     include_view :country
   end
 
   view :country do
-    association :country, view: :with_resume, blueprint: CountrySerializer
+    association :country, blueprint: CountrySerializer
   end
 end

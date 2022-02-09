@@ -7,10 +7,10 @@ describe 'GET /api/v1/countries/:country_id/cities/:id', type: :request do
   let(:headers) { auth_headers }
   let(:user) { create(:user) }
 
+  before { subject }
+
   context 'when response is an error' do
     let(:city) { build(:city, id: 0) }
-
-    before { subject }
 
     context 'when city does not exist' do
       it_behaves_like 'a not found request'
@@ -26,14 +26,16 @@ describe 'GET /api/v1/countries/:country_id/cities/:id', type: :request do
   context 'when response is successful' do
     let(:city) { create(:city) }
 
-    before { subject }
-
     it_behaves_like 'a successful request'
 
     it 'returns city info' do
       expect(json).to include_json(
         id: city.id,
-        name: city.name
+        name: city.name,
+        country: {
+          id: city.country.id,
+          name: city.country.name
+        }
       )
     end
   end
