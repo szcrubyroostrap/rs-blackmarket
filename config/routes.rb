@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       resource :cart, only: :show do
         resources :products, only: %i[create destroy update]
       end
+
+      resources :countries, except: %i[edit new]
     end
   end
 end
