@@ -8,6 +8,7 @@ RSpec.describe City, type: :model do
 
   describe 'associations' do
     it { expect(subject).to belong_to(:country) }
+    it { expect(subject).to have_many(:addresses).dependent(:destroy) }
   end
 
   describe 'validations' do

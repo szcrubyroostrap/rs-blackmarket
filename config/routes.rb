@@ -13,6 +13,10 @@ Rails.application.routes.draw do
       resources :countries, except: %i[edit new] do
         resources :cities, except: %i[edit new]
       end
+
+      resource :user, only: [] do
+        resources :addresses, except: %i[edit new]
+      end
     end
   end
 end

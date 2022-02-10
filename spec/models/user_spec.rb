@@ -10,6 +10,7 @@ describe User do
   describe 'associations' do
     it 'has relationships' do
       expect(subject).to have_many(:carts).dependent(:destroy)
+      expect(subject).to have_many(:addresses).dependent(:destroy)
     end
   end
 
