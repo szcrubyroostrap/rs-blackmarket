@@ -10,7 +10,9 @@ Rails.application.routes.draw do
         resources :products, only: %i[create destroy update]
       end
 
-      resources :countries, except: %i[edit new]
+      resources :countries, except: %i[edit new] do
+        resources :cities, except: %i[edit new]
+      end
     end
   end
 end

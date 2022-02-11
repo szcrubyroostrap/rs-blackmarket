@@ -1,16 +1,17 @@
-RSpec.describe Country, type: :model do
+RSpec.describe City, type: :model do
   describe 'database' do
     it 'has columns' do
       expect(subject).to have_db_column(:name).of_type(:string).with_options(null: false)
+      expect(subject).to have_db_column(:country_id).of_type(:integer).with_options(null: false)
     end
   end
 
   describe 'associations' do
-    it { expect(subject).to have_many(:cities).dependent(:destroy) }
+    it { expect(subject).to belong_to(:country) }
   end
 
   describe 'validations' do
-    subject { build(:country) }
+    subject { build(:city) }
 
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:name) }
