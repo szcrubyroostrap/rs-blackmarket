@@ -6,4 +6,5 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   has_many :carts, dependent: :destroy
+  has_many :addresses, dependent: :destroy
 end
