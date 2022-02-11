@@ -6,7 +6,7 @@ module Api
       end
 
       def create
-        new_city = country.cities.create!(cities_params)
+        new_city = country.cities.create!(city_params)
 
         render json: response_data(new_city), status: :created
       end
@@ -16,7 +16,7 @@ module Api
       end
 
       def update
-        city.update!(cities_params)
+        city.update!(city_params)
 
         render json: response_data(city), status: :ok
       end
@@ -29,7 +29,7 @@ module Api
 
       private
 
-      def cities_params
+      def city_params
         params.require(:city).permit(:name)
       end
 

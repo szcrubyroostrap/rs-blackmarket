@@ -11,6 +11,9 @@ RSpec.describe City, type: :model do
   end
 
   describe 'validations' do
+    subject { build(:city) }
+
     it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_uniqueness_of(:name) }
   end
 end

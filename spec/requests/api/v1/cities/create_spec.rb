@@ -16,12 +16,12 @@ describe 'POST /api/v1/countries/:country_id/cities', type: :request do
     }
   end
 
-  before { subject }
-
   context 'when response is successful' do
     it_behaves_like 'a successful request'
 
     it 'returns city info' do
+      subject
+
       expect(json).to include_json(
         country: {
           id: country.id,
@@ -29,6 +29,10 @@ describe 'POST /api/v1/countries/:country_id/cities', type: :request do
         },
         name: city_name
       )
+    end
+
+    it 'creates the city' do
+      expect { subject }.to change { City.count }.by(1)
     end
   end
 
