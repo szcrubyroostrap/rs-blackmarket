@@ -28,7 +28,13 @@ describe 'PUT /api/v1/countries/:id', type: :request do
     end
 
     it 'does not modify country table size' do
-      expect { subject }.to change { Country.count }.by(0)
+      expect { subject }.not_to change { Country.count }
+    end
+
+    it 'uploads name attribute' do
+      country_name = country.name
+
+      expect { subject }.to change { country.reload.name }.to(name).from(country_name)
     end
   end
 
