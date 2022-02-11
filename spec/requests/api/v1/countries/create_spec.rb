@@ -12,15 +12,19 @@ describe 'POST /api/v1/countries', type: :request do
     }
   end
 
-  before { subject }
-
   context 'when response is successful' do
     it_behaves_like 'a successful request'
 
     it 'returns country info' do
+      subject
+
       expect(json).to include_json(
         name: country_name
       )
+    end
+
+    it 'creates the country' do
+      expect { subject }.to change { Country.count }.by(1)
     end
   end
 
